@@ -27,6 +27,7 @@ class ProductFullSyncCommand extends IronAzureCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        ini_set('memory_limit', '2G');
         $fileName = __DIR__ . '/../products.csv';
 
         $config = $this->getConfigLoader()->load($input);
@@ -53,22 +54,21 @@ class ProductFullSyncCommand extends IronAzureCommand
                 $request->where('id > "' . $lastId . '"');
             }
             $response = $client->execute($request);
-            $products = $request->mapFromResponse($response);
-            if ($response->isError() || is_null($products)) {
+            if ($response->isError()) {
                 break;
             }
+            $products = $response->toArray()['results'];
 
             foreach ($products as $product) {
-                $name = $product->toArray()['name']['en'];
+                $name = $product['name']['en'];
                 $row = [
-                    $product->getId(),
+                    $product['id'],
                     str_replace(',', '', $name),
                     ''
                 ];
                 $data[] = implode(',', $row);
             }
-            $results = $response->toArray()['results'];
-            $lastId = end($results)['id'];
+            $lastId = end($products)['id'];
 
             file_put_contents($fileName, implode(PHP_EOL, $data), FILE_APPEND);
 
