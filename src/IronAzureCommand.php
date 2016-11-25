@@ -123,7 +123,7 @@ abstract class IronAzureCommand extends Command
             'client_id' => getenv(static::CTP_CLIENT_ID) ? getenv(static::CTP_CLIENT_ID) : $config[static::CTP_CLIENT_ID],
             'client_secret' => getenv(static::CTP_CLIENT_SECRET) ? getenv(static::CTP_CLIENT_SECRET) : $config[static::CTP_CLIENT_SECRET],
             'project' => getenv(static::CTP_PROJECT) ? getenv(static::CTP_PROJECT) : $config[static::CTP_PROJECT],
-            'scope' => getenv(static::CTP_SCOPE) ? getenv(static::CTP_SCOPE) : isset($config[static::CTP_SCOPE]) ? $config[static::CTP_SCOPE] : 'manage_project'
+            'scope' => getenv(static::CTP_SCOPE) ? getenv(static::CTP_SCOPE) : (isset($config[static::CTP_SCOPE]) ? $config[static::CTP_SCOPE] : 'manage_project')
         ];
         return $clientConfig;
     }

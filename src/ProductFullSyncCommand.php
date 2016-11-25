@@ -42,7 +42,7 @@ class ProductFullSyncCommand extends IronAzureCommand
         do {
             $url = sprintf(
                 'catalog?catalogDisplayName=%s-%s',
-                $config[static::CTP_PROJECT],
+                $client->getConfig()->getProject(),
                 $part
             );
             $part++;
