@@ -1,9 +1,0 @@
-{
-  "notificationType": "ResourceCreated",
-  "projectKey": "sunrise-production",
-  "resource": {
-    "typeId": "order",
-    "id": "56de5efd-7498-43d2-9f9e-2cab18f0ac30"
-  },
-  "version": 1
-}
